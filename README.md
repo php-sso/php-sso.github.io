@@ -30,7 +30,7 @@ Then open <http://localhost:8000/>. Any static file server works.
 ## Publish it
 
 GitHub only serves an organisation site from a repository named exactly `php-sso.github.io`. This repository is that one,
-and its Pages setting is "Deploy from a branch", branch `main`, folder `/ (root)`. Every push to `main` is live a minute later.
+and its Pages setting is "Deploy from a branch", branch `master`, folder `/ (root)`. Every push to `master` is live a minute later.
 
 ## The colours mean something
 
