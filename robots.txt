@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://php-sso.github.io/sitemap.xml

@@ -1,0 +1,245 @@
+/* php-sso marketing site. Plain CSS, no build step.
+   Deep indigo bands open every page. Colour carries meaning: each way into php-sso has its own hue. */
+
+@font-face { font-family: "IBM Plex Sans"; font-weight: 400; font-style: normal; font-display: swap; src: url("fonts/ibm-plex-sans-latin-400-normal.woff2") format("woff2"); }
+@font-face { font-family: "IBM Plex Sans"; font-weight: 600; font-style: normal; font-display: swap; src: url("fonts/ibm-plex-sans-latin-600-normal.woff2") format("woff2"); }
+@font-face { font-family: "IBM Plex Sans Condensed"; font-weight: 600; font-style: normal; font-display: swap; src: url("fonts/ibm-plex-sans-condensed-latin-600-normal.woff2") format("woff2"); }
+@font-face { font-family: "IBM Plex Sans Condensed"; font-weight: 700; font-style: normal; font-display: swap; src: url("fonts/ibm-plex-sans-condensed-latin-700-normal.woff2") format("woff2"); }
+@font-face { font-family: "IBM Plex Mono"; font-weight: 400; font-style: normal; font-display: swap; src: url("fonts/ibm-plex-mono-latin-400-normal.woff2") format("woff2"); }
+
+:root {
+  color-scheme: light dark;
+  --paper: #f6f5fb;
+  --surface: #ffffff;
+  --wash: #ebe9f7;
+  --ink: #181633;
+  --muted: #55537a;
+  --line: #d6d3ea;
+  --primary: #4338e0;
+  --primary-ink: #ffffff;
+  --focus: #4338e0;
+  --mark: #fff1c2;
+  --mark-ink: #5c4300;
+
+  --night: #15123f;
+  --hub: #4f46e5;
+
+  /* The ways in, by colour (these are the deeper versions for light backgrounds). */
+  --c-password: #2f5fe0;
+  --c-saml: #0b8e80;
+  --c-social: #b7791f;
+  --c-scim: #be3c79;
+  --c-oidc: #4a8a1c;
+  --c-core: #4338e0;
+
+  --sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --display: "IBM Plex Sans Condensed", "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  --gutter: clamp(1rem, 4vw, 2rem);
+  --measure: 38rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #0c0a24;
+    --surface: #16133f;
+    --wash: #1a1750;
+    --ink: #ecebfa;
+    --muted: #aeabd8;
+    --line: #2c2865;
+    --primary: #a39dff;
+    --primary-ink: #0c0a24;
+    --focus: #a39dff;
+    --mark: #3a3012;
+    --mark-ink: #ffe08a;
+    --night: #1a1752;
+    --c-password: #7aa7ff;
+    --c-saml: #3cc9b5;
+    --c-social: #f2b84b;
+    --c-scim: #e77ba6;
+    --c-oidc: #8ad46a;
+    --c-core: #a39dff;
+  }
+}
+
+/* A deep indigo band. Everything inside reads its colours from these, so one component works on both. */
+.on-night {
+  --ink: #f3f2ff;
+  --muted: #bcb9ea;
+  --line: rgba(255, 255, 255, 0.2);
+  --surface: rgba(255, 255, 255, 0.07);
+  --primary: #b1abff;
+  --primary-ink: #15123f;
+  --focus: #ffffff;
+  --c-password: #7aa7ff;
+  --c-saml: #3cc9b5;
+  --c-social: #f2b84b;
+  --c-scim: #e77ba6;
+  --c-oidc: #8ad46a;
+  --c-core: #b1abff;
+  background: var(--night);
+  color: var(--ink);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-padding-top: 1rem; }
+body { margin: 0; background: var(--paper); color: var(--ink); font: 400 1.0625rem/1.65 var(--sans); }
+img, svg { max-width: 100%; }
+a { color: var(--primary); text-underline-offset: 0.2em; }
+a:hover { text-decoration-thickness: 2px; }
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; border-radius: 2px; }
+code, pre, kbd { font-family: var(--mono); font-size: 0.9em; }
+p { margin: 0 0 1em; }
+h1, h2, h3 { font-family: var(--display); font-weight: 700; line-height: 1.1; letter-spacing: -0.01em; margin: 0; text-wrap: balance; }
+h2 { font-size: clamp(1.85rem, 3.4vw, 2.6rem); }
+h3 { font-size: 1.25rem; font-weight: 600; }
+ul, ol { padding-left: 1.2em; margin: 0 0 1em; }
+li { margin-bottom: 0.4em; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+.wrap { width: min(100% - 2 * var(--gutter), 72rem); margin-inline: auto; }
+.skip { position: absolute; left: -999px; top: 0; background: #fff; color: var(--night); padding: 0.6rem 1rem; z-index: 10; }
+.skip:focus { left: var(--gutter); }
+
+/* Header */
+.top { border-bottom: 1px solid var(--line); }
+.top .wrap { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.5rem 2rem; padding-block: 1rem; }
+.brand { font: 700 1.5rem/1 var(--display); letter-spacing: -0.01em; color: var(--ink); text-decoration: none; display: inline-flex; align-items: center; gap: 0.6rem; }
+.brand img { width: auto; height: 2.9rem; display: block; }
+.nav { display: flex; flex-wrap: wrap; gap: 0.25rem 1.5rem; }
+.nav a { color: var(--ink); text-decoration: none; padding-block: 0.25rem; border-bottom: 2px solid transparent; }
+.nav a:hover, .nav a[aria-current="page"] { border-bottom-color: var(--c-core); }
+@media (max-width: 30rem) { .nav { gap: 0.25rem 1.1rem; font-size: 0.97rem; } }
+.nav .nav-icon { display: inline-flex; align-items: center; }
+.nav .nav-icon svg { display: block; width: 1.35rem; height: 1.35rem; fill: currentColor; }
+
+/* Buttons */
+.btn { display: inline-block; font: 600 1rem/1 var(--sans); padding: 0.9rem 1.3rem; border: 2px solid var(--primary); background: var(--primary); color: var(--primary-ink); border-radius: 4px; text-decoration: none; cursor: pointer; }
+.btn:hover { text-decoration: underline; }
+.actions { display: flex; flex-wrap: wrap; gap: 0.75rem 1.5rem; align-items: center; margin-top: 1.75rem; }
+
+/* Hero: the headline, and three passes: three people who got in in three ways */
+.hero { padding-block: clamp(2.5rem, 7vw, 5rem) clamp(3rem, 7vw, 5rem); }
+.hero .wrap { display: grid; gap: 3rem 4rem; align-items: center; }
+@media (min-width: 62rem) { .hero .wrap { grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr); } }
+.hero h1 { font-size: clamp(2.8rem, 6vw, 5rem); line-height: 0.98; letter-spacing: -0.02em; color: #fff; }
+.lead { font-size: 1.25rem; line-height: 1.55; color: var(--muted); max-width: var(--measure); margin-top: 1.25rem; }
+
+.passes { margin: 0; }
+.passes figcaption { margin-top: 1.1rem; max-width: 27rem; margin-inline: auto 0; font-size: 0.95rem; line-height: 1.5; color: var(--muted); }
+.stack { position: relative; height: 23.6rem; width: min(100%, 27rem); margin-inline: auto 0; }
+.pass { --on: #15123f; position: absolute; width: calc(100% - 3rem); background: #ffffff; color: #181633; border-radius: 10px; overflow: hidden; box-shadow: 0 22px 44px -20px rgba(4, 3, 24, 0.75); animation: settle 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+.pass header { display: flex; align-items: center; gap: 0.85rem; background: var(--c); color: var(--on); padding: 0.75rem 1rem; }
+.avatar { flex: none; width: 2.4rem; height: 2.4rem; border-radius: 50%; background: var(--on); color: var(--c); display: grid; place-items: center; font: 700 1rem/1 var(--display); font-style: normal; }
+.pass header b { display: block; font: 700 1.3rem/1.1 var(--display); letter-spacing: -0.01em; }
+.pass header span { display: block; font-size: 0.85rem; font-weight: 600; line-height: 1.3; margin-top: 0.1rem; }
+.pass dl { margin: 0; padding: 0.6rem 1rem 0.7rem; font-size: 0.92rem; }
+.pass dl div { display: flex; gap: 0.75rem; padding: 0.25rem 0; border-top: 1px solid #e4e2f1; }
+.pass dl div:first-child { border-top: 0; }
+.pass dt { flex: none; width: 4.2rem; color: #55537a; }
+.pass dd { margin: 0; }
+.pass .amr { margin: 0; padding: 0.7rem 1rem; background: #f2f0fb; border-top: 1px solid #e4e2f1; font-size: 0.85rem; }
+.pass mark { background: #fff1c2; color: #5c4300; padding: 0.1em 0.3em; border-radius: 2px; }
+.p3 { top: 0; left: 3rem; animation-delay: 0.1s; }
+.p2 { top: 4.3rem; left: 1.5rem; animation-delay: 0.3s; }
+.p1 { top: 8.6rem; left: 0; animation-delay: 0.5s; }
+@keyframes settle { from { opacity: 0; transform: translateY(1.5rem); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .pass { animation: none; } }
+
+/* Narrower than two columns: the passes stack, each fully visible */
+@media (max-width: 61.99rem) {
+  .stack { position: static; height: auto; display: grid; gap: 1rem; width: 100%; max-width: 30rem; margin-inline: 0; }
+  .pass { position: static; width: 100%; }
+  .passes figcaption { margin-inline: 0; }
+}
+
+/* The sign-in you can try */
+.try { border: 1px solid var(--line); border-radius: 8px; background: var(--surface); overflow: hidden; }
+.try-bar { display: flex; align-items: center; gap: 0.75rem; padding: 0.55rem 0.9rem; background: var(--wash); border-bottom: 1px solid var(--line); font: 400 0.8rem/1.2 var(--mono); color: var(--muted); }
+.try-bar i { width: 0.6rem; height: 0.6rem; border-radius: 50%; background: var(--line); display: inline-block; }
+.try-body { padding: 1.25rem 1.25rem 1rem; min-height: 15rem; }
+.try-body .step-title { font: 700 1.5rem/1.15 var(--display); letter-spacing: -0.01em; margin: 0 0 0.4rem; color: var(--ink); }
+.try-body p { color: var(--muted); font-size: 0.97rem; line-height: 1.55; margin-bottom: 0.9rem; }
+.try label { display: block; font-weight: 600; font-size: 0.95rem; margin-bottom: 0.3rem; }
+.try input[type="email"], .try input[type="password"], .try input[type="text"] { width: 100%; font: 400 1rem/1.3 var(--sans); padding: 0.65rem 0.75rem; border: 1px solid var(--muted); border-radius: 4px; background: var(--paper); color: var(--ink); }
+.try .row { display: flex; flex-wrap: wrap; gap: 0.5rem 0.75rem; margin-top: 0.9rem; align-items: center; }
+.try .try-btn { font: 600 0.97rem/1 var(--sans); padding: 0.7rem 1.1rem; border-radius: 4px; border: 2px solid var(--primary); background: var(--primary); color: var(--primary-ink); cursor: pointer; }
+.try .try-btn:hover { text-decoration: underline; }
+.try .link { font: 400 0.95rem/1.3 var(--sans); background: none; border: 0; padding: 0.2rem 0; color: var(--primary); text-decoration: underline; text-underline-offset: 0.2em; cursor: pointer; }
+.try .chips { display: flex; flex-wrap: wrap; gap: 0.4rem 1rem; margin-top: 0.6rem; font-size: 0.9rem; }
+.try .err { background: var(--mark); color: var(--mark-ink); padding: 0.4rem 0.6rem; border-radius: 4px; margin: 0.6rem 0 0; font-size: 0.92rem; }
+.try .try-switch { display: flex; gap: 0.6rem; align-items: flex-start; margin: 0; padding: 0.8rem 1.25rem; border-top: 1px solid var(--line); font-size: 0.95rem; font-weight: 400; cursor: pointer; }
+.try .try-switch input { margin-top: 0.3rem; flex: none; width: 1.05rem; height: 1.05rem; accent-color: var(--primary); }
+.try .try-switch span { color: var(--muted); }
+.try .try-switch b { display: block; color: var(--ink); font-weight: 600; }
+.try-token { border-top: 1px solid var(--line); background: var(--wash); padding: 1rem 1.25rem 1.1rem; }
+.try-token h3 { font-size: 1.05rem; margin-bottom: 0.5rem; }
+.try-token pre { margin: 0; overflow-x: auto; font-size: 0.82rem; line-height: 1.6; padding: 0.75rem 0.9rem; background: var(--surface); border: 1px solid var(--line); border-radius: 4px; }
+.try-token mark { background: var(--mark); color: var(--mark-ink); padding: 0.1em 0.25em; border-radius: 2px; }
+.try-token .why { margin: 0.75rem 0 0.5rem; font-size: 0.95rem; }
+.try-fine { font-size: 0.85rem; color: var(--muted); padding: 0.1rem 1.25rem 1rem; margin: 0; }
+
+/* Bands */
+.band { padding-block: clamp(3rem, 6vw, 4.75rem); }
+.band.wash { background: var(--wash); }
+.band-head { max-width: var(--measure); margin-bottom: 2rem; }
+.band-head p { color: var(--muted); margin: 0.9rem 0 0; }
+
+/* The ledger of what you get: each group has its own colour and its own rows */
+.group { --gc: var(--c-core); display: grid; gap: 0.75rem 2.5rem; padding-block: 1.5rem; border-top: 4px solid var(--gc); }
+@media (min-width: 52rem) { .group { grid-template-columns: 12rem minmax(0, 1fr); } .group > h3 { position: sticky; top: 1rem; align-self: start; } }
+.group > h3 { color: var(--ink); }
+.group dl { margin: 0; }
+.group .item { display: grid; gap: 0.15rem 2rem; padding-block: 0.85rem; border-top: 1px solid var(--line); }
+.group .item:first-child { border-top: 0; padding-top: 0; }
+@media (min-width: 52rem) { .group .item { grid-template-columns: 15rem minmax(0, 1fr); } }
+.group dt { font-weight: 600; }
+.group dd { margin: 0; color: var(--muted); max-width: var(--measure); }
+
+/* Two columns of prose next to a block */
+.split { display: grid; gap: 2rem 3.5rem; align-items: start; }
+@media (min-width: 56rem) { .split { grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); } }
+.split p { max-width: var(--measure); }
+
+.facts { --fc: var(--c-core); margin: 0; border: 1px solid var(--line); border-top: 4px solid var(--fc); border-radius: 0 0 6px 6px; background: var(--surface); }
+.facts div { display: grid; gap: 0.1rem 1.5rem; padding: 0.75rem 1rem; border-top: 1px solid var(--line); }
+.facts div:first-child { border-top: 0; }
+@media (min-width: 40rem) { .facts div { grid-template-columns: 7.5rem minmax(0, 1fr); } }
+.facts dt { font-weight: 600; }
+.facts dd { margin: 0; overflow-wrap: anywhere; }
+
+/* SAML and SCIM, each in its own colour */
+.lanes { display: grid; gap: 2rem 3rem; }
+@media (min-width: 48rem) { .lanes { grid-template-columns: 1fr 1fr; } }
+.lane { --lc: var(--c-core); border-top: 4px solid var(--lc); padding-top: 0.9rem; }
+.lane h3 { margin-bottom: 0.8rem; }
+.lane ul { padding-left: 1.1em; max-width: var(--measure); }
+.lane li::marker { color: var(--lc); }
+
+.plain { max-width: var(--measure); }
+.notgot { columns: 1; margin-top: 1rem; max-width: 46rem; }
+@media (min-width: 48rem) { .notgot { columns: 2; column-gap: 3rem; } }
+.notgot li { break-inside: avoid; color: var(--muted); }
+
+/* Tables on the standards page */
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 0.98rem; }
+th, td { text-align: left; vertical-align: top; padding: 0.7rem 1rem 0.7rem 0; border-top: 1px solid var(--line); }
+thead th { border-top: 4px solid var(--c-core); font-family: var(--display); font-weight: 600; font-size: 1.05rem; }
+td:first-child { font-weight: 600; white-space: nowrap; padding-right: 1.5rem; }
+td:nth-child(2) { color: var(--muted); }
+
+.page-head { padding-block: clamp(2.5rem, 6vw, 4rem); }
+.page-head h1 { font-size: clamp(2.4rem, 5.5vw, 4rem); color: #fff; }
+.page-head p { color: var(--muted); font-size: 1.15rem; max-width: var(--measure); margin-top: 1rem; }
+.page-body { padding-block: 1rem clamp(3rem, 6vw, 4.5rem); }
+
+footer { padding-block: 2rem; color: var(--muted); font-size: 0.95rem; border-top: 1px solid var(--line); }
+footer .wrap { display: flex; flex-wrap: wrap; gap: 0.5rem 2rem; justify-content: space-between; }
+footer a { color: var(--muted); }
+
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
+
+/* The install commands in the Documentation section: on their own line, never broken in the middle. */
+#docs dd code { white-space: nowrap; }

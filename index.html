@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>php-sso: single sign-on you run yourself</title>
+  <meta name="description" content="php-sso is an OpenID Connect provider written in PHP, with two-step verification, SAML for company logins, SCIM provisioning and an admin panel. One container, no other services.">
+  <link rel="canonical" href="https://php-sso.github.io/">
+  <link rel="icon" href="favicon.ico" sizes="48x48">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <link rel="manifest" href="assets/site.webmanifest">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <meta name="theme-color" content="#15123f" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#1a1752" media="(prefers-color-scheme: dark)">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="php-sso: single sign-on you run yourself">
+  <meta property="og:description" content="An OpenID Connect provider written in PHP. Two-step verification, SAML, SCIM and an admin panel, in one container.">
+  <meta property="og:url" content="https://php-sso.github.io/">
+  <meta property="og:image" content="https://php-sso.github.io/assets/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="php-sso: one sign-in for everything you run">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preload" href="assets/fonts/ibm-plex-sans-condensed-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/ibm-plex-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/site.css">
+  <script src="assets/site.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to the content</a>
+
+  <header class="top on-night">
+    <div class="wrap">
+      <a class="brand" href="./"><img src="assets/php-sso-logo.svg" alt="php-sso" height="40"></a>
+      <nav class="nav" aria-label="Main">
+        <a href="#features">Features</a>
+        <a href="standards.html">Standards</a>
+        <a href="#docs">Documentation</a>
+        <a class="nav-icon" href="https://github.com/php-sso" aria-label="php-sso on GitHub" title="php-sso on GitHub"><svg viewBox="0 0 16 16" width="22" height="22" aria-hidden="true" focusable="false"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero on-night">
+      <div class="wrap">
+        <div class="hero-text">
+          <h1>One sign-in for everything you run</h1>
+          <p class="lead">php-sso is an OpenID Connect provider written in PHP. It signs your people in, asks for a second factor, lets staff of other companies in through SAML, and tells your apps who they are. It needs one container and no other services.</p>
+          <div class="actions">
+            <a class="btn" href="#docs">Read the documentation</a>
+            <a href="standards.html">See the standards it follows</a>
+          </div>
+        </div>
+
+        <figure class="passes" aria-labelledby="passes-caption">
+          <div class="stack">
+            <article class="pass p3" style="--c: var(--c-social)">
+              <header><i class="avatar">DR</i><div><b>Dana Reyes</b><span>Google account</span></div></header>
+              <dl><div><dt>Email</dt><dd>dana.reyes@example.org</dd></div><div><dt>Groups</dt><dd>customers</dd></div><div><dt>Roles</dt><dd>viewer</dd></div></dl>
+              <p class="amr"><code>"amr": <mark>["fed"]</mark></code></p>
+            </article>
+            <article class="pass p2" style="--c: var(--c-saml)">
+              <header><i class="avatar">SO</i><div><b>Sam Okafor</b><span>Acme's identity provider (SAML)</span></div></header>
+              <dl><div><dt>Email</dt><dd>sam@acme.com</dd></div><div><dt>Groups</dt><dd>acme-partners</dd></div><div><dt>Roles</dt><dd>editor</dd></div></dl>
+              <p class="amr"><code>"amr": <mark>["fed"]</mark></code></p>
+            </article>
+            <article class="pass p1" style="--c: var(--c-password)">
+              <header><i class="avatar">AS</i><div><b>Alice Smith</b><span>Password and authenticator code</span></div></header>
+              <dl><div><dt>Email</dt><dd>alice@example.com</dd></div><div><dt>Groups</dt><dd>staff, finance</dd></div><div><dt>Roles</dt><dd>editor, admin</dd></div></dl>
+              <p class="amr"><code>"amr": <mark>["pwd", "otp", "mfa"]</mark></code></p>
+            </article>
+          </div>
+          <figcaption id="passes-caption">Three people, three ways in. Each app learns who they are, which groups and roles they have, and how they signed in.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="band" id="features">
+      <div class="wrap">
+        <div class="band-head">
+          <h2>What you get</h2>
+          <p>All of this is built and managed from the admin panel.</p>
+        </div>
+
+        <div class="ledger">
+          <section class="group" style="--gc: var(--c-password)" aria-labelledby="g-signin">
+            <h3 id="g-signin">Signing in</h3>
+            <dl>
+              <div class="item"><dt>Identifier first</dt><dd>Ask who someone is, then how they prove it. Sign in by username, email address, or either.</dd></div>
+              <div class="item"><dt>Two-step verification</dt><dd>An authenticator app with a QR code to scan, and recovery codes. Make it optional, required for administrators, or required for everyone.</dd></div>
+              <div class="item"><dt>Social sign-in</dt><dd>Google, GitHub, or any OpenID Connect provider. People are matched on the provider's own id, never on the email address alone.</dd></div>
+              <div class="item"><dt>Steps before sign-in</dt><dd>Make someone choose a new password, or accept a notice you link to, before they can continue. Existing sessions are stopped too.</dd></div>
+            </dl>
+          </section>
+
+          <section class="group" style="--gc: var(--c-saml)" aria-labelledby="g-companies">
+            <h3 id="g-companies">Companies</h3>
+            <dl>
+              <div class="item"><dt>SAML</dt><dd>Staff of a customer or partner sign in through their own identity provider, such as Okta or Entra. Their email domain sends them there.</dd></div>
+              <div class="item"><dt>SCIM</dt><dd>The company's system creates, updates and deactivates people and groups here. Deactivating someone ends their sessions at once.</dd></div>
+            </dl>
+          </section>
+
+          <section class="group" style="--gc: var(--c-oidc)" aria-labelledby="g-apps">
+            <h3 id="g-apps">Your apps</h3>
+            <dl>
+              <div class="item"><dt>OpenID Connect</dt><dd>Authorization code with PKCE, refresh tokens that rotate, device flow, client credentials, and logout that reaches your apps.</dd></div>
+              <div class="item"><dt>Groups and roles</dt><dd>Apps receive the groups a person is in and the roles you give them, per app.</dd></div>
+              <div class="item"><dt>Who may use an app</dt><dd>Restrict an app to chosen people or groups, and to chosen network addresses.</dd></div>
+              <div class="item"><dt>How they signed in</dt><dd>Every ID token says whether a password, an outside account or a second factor was used, so an app can require one.</dd></div>
+            </dl>
+          </section>
+
+          <section class="group" style="--gc: var(--c-core)" aria-labelledby="g-run">
+            <h3 id="g-run">Running it</h3>
+            <dl>
+              <div class="item"><dt>Admin panel</dt><dd>Users, groups, apps, company connections, notices and sign-in settings, in one place.</dd></div>
+              <div class="item"><dt>Sign-in protection</dt><dd>See failed attempts as they happen, reset them for one person, and set the limits yourself. Lock accounts and restrict addresses.</dd></div>
+              <div class="item"><dt>Your look</dt><dd>Sign-in and account pages are templates you mount as a folder. Change them without rebuilding.</dd></div>
+              <div class="item"><dt>One container</dt><dd>Apache and PHP with a SQLite file on a volume. There is no database server, queue or cache to run.</dd></div>
+            </dl>
+          </section>
+        </div>
+      </div>
+    </section>
+
+    <section class="band wash" id="demo">
+      <div class="wrap split">
+        <div>
+          <h2>See how a sign-in is decided</h2>
+          <p style="margin-top: 1rem;">php-sso asks different things of different people. Try your own team, then a company address, and switch on the second step. What your app receives changes with how the person signed in.</p>
+          <p>Use <code>alice@example.com</code> to be asked for a password, or <code>sam@acme.com</code> to be sent to a company's identity provider.</p>
+        </div>
+        <section class="try" id="try" aria-label="Try the sign-in">
+          <div class="try-bar" aria-hidden="true"><i></i><i></i><i></i><span>sso.example.com/login</span></div>
+          <div class="try-body" data-step aria-live="polite">
+            <noscript>
+              <p class="step-title">Try the sign-in</p>
+              <p>Turn on JavaScript to try it. After a password and a code from an authenticator app, an app receives claims like these:</p>
+            </noscript>
+          </div>
+          <label class="try-switch" for="try-mfa">
+            <input id="try-mfa" type="checkbox">
+            <span><b>Require a second step</b> A code from an authenticator app, as a policy you set.</span>
+          </label>
+          <div class="try-token" data-token hidden></div>
+          <noscript>
+            <div class="try-token">
+              <h3>What your app receives</h3>
+              <pre><code>{
+  "iss": "https://sso.example.com",
+  "sub": "3f2c9d4e-7a1b-4c58-9b0e-5d2a6c81f4e3",
+  "aud": "your-app",
+  "auth_time": 1790000000,
+  "amr": ["pwd", "otp", "mfa"],
+  "email": "alice@example.com"
+}</code></pre>
+            </div>
+          </noscript>
+          <p class="try-fine">A simulation in your browser. Nothing is sent anywhere, and the claims are an example, not a signed token.</p>
+        </section>
+      </div>
+    </section>
+
+    <section class="band" id="apps">
+      <div class="wrap split">
+        <div>
+          <h2>Your apps need only OpenID Connect</h2>
+          <p style="margin-top: 1rem;">Point any OpenID Connect library at the discovery address and register the app in the admin panel. There is no SDK to install.</p>
+          <p>The ID token says who signed in and how: <code>sub</code>, <code>email</code>, <code>groups</code>, <code>roles</code>, <code>auth_time</code> and <code>amr</code>. An app that needs a second factor checks that <code>amr</code> contains <code>mfa</code>.</p>
+          <p>Each app lists the scopes it may ask for. Signing out of one app can end the session in the others.</p>
+        </div>
+        <dl class="facts" style="--fc: var(--c-oidc)">
+          <div><dt>Issuer</dt><dd><code>https://sso.example.com</code></dd></div>
+          <div><dt>Discovery</dt><dd><code>https://sso.example.com/.well-known/openid-configuration</code></dd></div>
+          <div><dt>Flow</dt><dd>Authorization code with PKCE (<code>S256</code>), required for every app</dd></div>
+          <div><dt>Scopes</dt><dd><code>openid</code> <code>profile</code> <code>email</code> <code>groups</code> <code>roles</code>, and any you add</dd></div>
+          <div><dt>Logout</dt><dd>RP-initiated, plus back-channel logout to apps that support it</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <section class="band wash" id="companies">
+      <div class="wrap">
+        <div class="band-head">
+          <h2>Let other companies' people in</h2>
+          <p>A customer or partner signs in with their own identity provider. You add the connection and the email domains it speaks for. Their system can also keep the list of people up to date, so someone who leaves the company is out of your apps too.</p>
+        </div>
+
+        <div class="lanes">
+          <div class="lane" style="--lc: var(--c-saml)">
+            <h3>SAML sign-in</h3>
+            <ul>
+              <li>Someone who types an address at the company's domain goes straight to their provider, with no password page.</li>
+              <li>A company can only speak for addresses at its own domains. It cannot vouch for anyone else's.</li>
+              <li>Answers from the provider must be signed, meant for you, recent, and a reply to a sign-in you started.</li>
+            </ul>
+          </div>
+          <div class="lane" style="--lc: var(--c-scim)">
+            <h3>SCIM provisioning</h3>
+            <ul>
+              <li>Tokens are shown once, kept as hashes, and limited to the domains you choose.</li>
+              <li>A SCIM client never touches administrators or people it did not create.</li>
+              <li>Deactivating a person locks the account and ends their sessions at once.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="band" id="status">
+      <div class="wrap">
+        <div class="band-head">
+          <h2>Where it stands</h2>
+          <p>php-sso is young: the application is at version 0.1 and the libraries it is built on are at 1.0. It is open source under the MIT license. It has hundreds of automated tests and ships as a production Docker image, but it has not had an independent security review, so treat it that way. SAML and SCIM have been tested against simulated providers, not yet against Okta or Entra.</p>
+        </div>
+        <h3>Not there yet</h3>
+        <ul class="notgot">
+          <li>No password reset by email.</li>
+          <li>No general audit log. Sign-in history and SCIM requests are kept.</li>
+          <li>Back-channel logout is sent once, with no retry queue.</li>
+          <li>Signing keys are created once and do not rotate by themselves.</li>
+          <li>No consent screen: it is made for your own apps.</li>
+          <li>SAML requests are not signed, and there is no single logout.</li>
+          <li>SCIM covers users and groups, not bulk operations.</li>
+          <li>No pushing people out to your apps (SCIM client).</li>
+        </ul>
+      </div>
+    </section>
+    <section class="band on-night" id="docs">
+      <div class="wrap split">
+        <div>
+          <h2>Documentation</h2>
+          <p style="margin-top: 1rem;">How to install, configure and run php-sso is in its own documentation, which lives with the code. The three libraries it is built on each have theirs, and you can use them in your own PHP applications. All four are open source under the MIT license.</p>
+        </div>
+        <dl class="facts">
+          <div><dt><a href="https://github.com/php-sso/php-sso">php-sso</a></dt><dd>The identity provider: installing it, setting it up, connecting your apps, SAML, SCIM and changing how it looks.</dd></div>
+          <div><dt><a href="https://github.com/php-sso/oauth-server">oauth-server</a></dt><dd>The OAuth 2.0 and OpenID Connect library underneath, for building your own server.<br><code>composer require php-sso/oauth-server</code></dd></div>
+          <div><dt><a href="https://github.com/php-sso/scim-server">scim-server</a></dt><dd>SCIM 2.0 provisioning of users and groups, with your own accounts and storage behind it.<br><code>composer require php-sso/scim-server</code></dd></div>
+          <div><dt><a href="https://github.com/php-sso/saml">saml</a></dt><dd>SAML 2.0 sign-in through a company's identity provider, for any PHP application.<br><code>composer require php-sso/saml</code></dd></div>
+        </dl>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="on-night">
+    <div class="wrap">
+      <span>php-sso</span>
+      <span><a href="standards.html">Standards</a>, <a href="https://github.com/php-sso">source on GitHub</a> and the <a href="https://github.com/php-sso/php-sso/blob/main/LICENSE">MIT license</a></span>
+    </div>
+  </footer>
+</body>
+</html>
