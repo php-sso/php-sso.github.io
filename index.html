@@ -90,6 +90,7 @@
               <div class="item"><dt>Identifier first</dt><dd>Ask who someone is, then how they prove it. Sign in by username, email address, or either.</dd></div>
               <div class="item"><dt>Two-step verification</dt><dd>An authenticator app with a QR code to scan, and recovery codes. Make it optional, required for administrators, or required for everyone.</dd></div>
               <div class="item"><dt>Social sign-in</dt><dd>Google, GitHub, or any OpenID Connect provider. People are matched on the provider's own id, never on the email address alone.</dd></div>
+              <div class="item"><dt>Password reset by email</dt><dd>People who forget their password get a link by email. It works once and expires, signs them out everywhere when used, and the emails are templates you can restyle like the sign-in pages.</dd></div>
               <div class="item"><dt>Steps before sign-in</dt><dd>Make someone choose a new password, or accept a notice you link to, before they can continue. Existing sessions are stopped too.</dd></div>
             </dl>
           </section>
@@ -232,7 +233,7 @@
           <div><dt>Docker</dt><dd><code>docker run ghcr.io/php-sso/php-sso</code><br>with a volume for the data, and your address and the first administrator's password as settings</dd></div>
           <div><dt>Composer</dt><dd><code>composer create-project --no-dev php-sso/php-sso</code></dd></div>
           <div><dt>Databases</dt><dd>SQLite, MySQL 8.0.19 or later, PostgreSQL 13 or later; the tests run on all three</dd></div>
-          <div><dt>Operations</dt><dd><code>bin/migrate</code>, <code>bin/keys</code>, <code>bin/backup</code>, <code>bin/restore</code> and <code>bin/maintenance</code></dd></div>
+          <div><dt>Operations</dt><dd><code>bin/migrate</code>, <code>bin/keys</code>, <code>bin/backup</code>, <code>bin/restore</code>, <code>bin/maintenance</code> and <code>bin/mail-test</code></dd></div>
         </dl>
       </div>
     </section>
@@ -245,7 +246,6 @@
         </div>
         <h3>Not there yet</h3>
         <ul class="notgot">
-          <li>No password reset by email.</li>
           <li>The audit log is kept in the same database as your data: stream it elsewhere if it must be out of reach of your own administrators.</li>
           <li>No consent screen: it is made for your own apps.</li>
           <li>SAML requests are not signed, and there is no single logout.</li>
