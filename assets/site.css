@@ -218,9 +218,6 @@ li { margin-bottom: 0.4em; }
 .lane li::marker { color: var(--lc); }
 
 .plain { max-width: var(--measure); }
-.notgot { columns: 1; margin-top: 1rem; max-width: 46rem; }
-@media (min-width: 48rem) { .notgot { columns: 2; column-gap: 3rem; } }
-.notgot li { break-inside: avoid; color: var(--muted); }
 
 /* Tables on the standards page */
 .table-wrap { overflow-x: auto; }
