@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>php-sso: single sign-on you run yourself</title>
-  <meta name="description" content="php-sso is an OpenID Connect provider written in PHP, with two-step verification, SAML for company logins, SCIM provisioning and an admin panel. One container, no other services.">
+  <meta name="description" content="php-sso is an OpenID Connect provider written in PHP, with two-step verification, SAML for company logins, SCIM provisioning and an admin panel. One container to start with, on SQLite, MySQL or PostgreSQL.">
   <link rel="canonical" href="https://php-sso.github.io/">
   <link rel="icon" href="favicon.ico" sizes="48x48">
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
@@ -14,7 +14,7 @@
   <meta name="theme-color" content="#1a1752" media="(prefers-color-scheme: dark)">
   <meta property="og:type" content="website">
   <meta property="og:title" content="php-sso: single sign-on you run yourself">
-  <meta property="og:description" content="An OpenID Connect provider written in PHP. Two-step verification, SAML, SCIM and an admin panel, in one container.">
+  <meta property="og:description" content="An OpenID Connect provider written in PHP. Two-step verification, SAML, SCIM and an admin panel. One container to start with; SQLite, MySQL or PostgreSQL.">
   <meta property="og:url" content="https://php-sso.github.io/">
   <meta property="og:image" content="https://php-sso.github.io/assets/og-image.png">
   <meta property="og:image:width" content="1200">
@@ -46,7 +46,7 @@
       <div class="wrap">
         <div class="hero-text">
           <h1>One sign-in for everything you run</h1>
-          <p class="lead">php-sso is an OpenID Connect provider written in PHP. It signs your people in, asks for a second factor, lets staff of other companies in through SAML, and tells your apps who they are. It needs one container and no other services.</p>
+          <p class="lead">php-sso is an OpenID Connect provider written in PHP. It signs your people in, asks for a second factor, lets staff of other companies in through SAML, and tells your apps who they are. It starts as one container with no other services, and runs on SQLite, MySQL or PostgreSQL when you want your data in a database server.</p>
           <div class="actions">
             <a class="btn" href="#docs">Read the documentation</a>
             <a href="standards.html">See the standards it follows</a>
@@ -105,7 +105,7 @@
           <section class="group" style="--gc: var(--c-oidc)" aria-labelledby="g-apps">
             <h3 id="g-apps">Your apps</h3>
             <dl>
-              <div class="item"><dt>OpenID Connect</dt><dd>Authorization code with PKCE, refresh tokens that rotate, device flow, client credentials, and logout that reaches your apps.</dd></div>
+              <div class="item"><dt>OpenID Connect</dt><dd>Authorization code with PKCE, refresh tokens that rotate, device flow, client credentials, and logout that reaches your apps, and is sent again when an app was down.</dd></div>
               <div class="item"><dt>Groups and roles</dt><dd>Apps receive the groups a person is in and the roles you give them, per app.</dd></div>
               <div class="item"><dt>Who may use an app</dt><dd>Restrict an app to chosen people or groups, and to chosen network addresses.</dd></div>
               <div class="item"><dt>How they signed in</dt><dd>Every ID token says whether a password, an outside account or a second factor was used, so an app can require one.</dd></div>
@@ -115,10 +115,22 @@
           <section class="group" style="--gc: var(--c-core)" aria-labelledby="g-run">
             <h3 id="g-run">Running it</h3>
             <dl>
-              <div class="item"><dt>Admin panel</dt><dd>Users, groups, apps, company connections, notices and sign-in settings, in one place.</dd></div>
+              <div class="item"><dt>Admin panel</dt><dd>Users, groups, apps, company connections, notices and sign-in settings, in one place. Long lists have search and pages.</dd></div>
               <div class="item"><dt>Sign-in protection</dt><dd>See failed attempts as they happen, reset them for one person, and set the limits yourself. Lock accounts and restrict addresses.</dd></div>
               <div class="item"><dt>Your look</dt><dd>Sign-in and account pages are templates you mount as a folder. Change them without rebuilding.</dd></div>
-              <div class="item"><dt>One container</dt><dd>Apache and PHP with a SQLite file on a volume. There is no database server, queue or cache to run.</dd></div>
+              <div class="item"><dt>Docker or Composer</dt><dd>Pull the image from the GitHub container registry, build your own on top of it with your theme, or install it as a PHP project with <code>composer create-project</code>.</dd></div>
+              <div class="item"><dt>Your database</dt><dd>A SQLite file to start with, or MySQL or PostgreSQL. Schema changes are applied by migrations, and an older version refuses to run against a database a newer one has upgraded.</dd></div>
+            </dl>
+          </section>
+
+          <section class="group" style="--gc: var(--c-social)" aria-labelledby="g-safe">
+            <h3 id="g-safe">Keeping it safe</h3>
+            <dl>
+              <div class="item"><dt>Audit log</dt><dd>Who changed what, and when: every change in the admin panel, the changes people make to their own account, and key, backup and restore commands. Search it, keep it as long as you choose, and send it to your log collector as it is written.</dd></div>
+              <div class="item"><dt>Safe by default</dt><dd>A strict Content-Security-Policy and secure cookies. The server refuses to start with plain HTTP on a public address, demo data in production, or a weak first password.</dd></div>
+              <div class="item"><dt>Keys without downtime</dt><dd>Rotate the signing key: the new one is published before it signs, and the old one stays published until the tokens it signed have expired.</dd></div>
+              <div class="item"><dt>Backup and restore</dt><dd>One file with the data and the keys, taken while the server runs. It restores into any of the three databases, which is also how you move from SQLite to PostgreSQL.</dd></div>
+              <div class="item"><dt>Health check</dt><dd>A <code>/healthz</code> address for your load balancer, and a health check built into the Docker image.</dd></div>
             </dl>
           </section>
         </div>
@@ -209,18 +221,32 @@
       </div>
     </section>
 
+    <section class="band wash" id="install">
+      <div class="wrap split">
+        <div>
+          <h2>Two ways to run it</h2>
+          <p style="margin-top: 1rem;">Use the container image, or install it as a PHP project on your own web server. Either way the settings are environment variables, the data is in one database, and an upgrade is a new version that migrates the schema when it starts.</p>
+          <p>With Docker you can build your own image <code>FROM</code> ours and add your theme. With Composer you get the files and run them on PHP 8.3 or later behind Apache or nginx.</p>
+        </div>
+        <dl class="facts">
+          <div><dt>Docker</dt><dd><code>docker run ghcr.io/php-sso/php-sso</code><br>with a volume for the data, and your address and the first administrator's password as settings</dd></div>
+          <div><dt>Composer</dt><dd><code>composer create-project --no-dev php-sso/php-sso</code></dd></div>
+          <div><dt>Databases</dt><dd>SQLite, MySQL 8.0.19 or later, PostgreSQL 13 or later; the tests run on all three</dd></div>
+          <div><dt>Operations</dt><dd><code>bin/migrate</code>, <code>bin/keys</code>, <code>bin/backup</code>, <code>bin/restore</code> and <code>bin/maintenance</code></dd></div>
+        </dl>
+      </div>
+    </section>
+
     <section class="band" id="status">
       <div class="wrap">
         <div class="band-head">
           <h2>Where it stands</h2>
-          <p>php-sso is young: the application is at version 0.1 and the libraries it is built on are at 1.0. It is open source under the MIT license. It has hundreds of automated tests and ships as a production Docker image, but it has not had an independent security review, so treat it that way. SAML and SCIM have been tested against simulated providers, not yet against Okta or Entra.</p>
+          <p>php-sso is young: the application is at version 0.1 and the libraries it is built on are at 1.0. It is open source under the MIT license. It has more than a thousand automated tests, run on SQLite, MySQL and PostgreSQL, and ships as a production Docker image, but it has not had an independent security review, so treat it that way. SAML and SCIM have been tested against simulated providers, not yet against Okta or Entra.</p>
         </div>
         <h3>Not there yet</h3>
         <ul class="notgot">
           <li>No password reset by email.</li>
-          <li>No general audit log. Sign-in history and SCIM requests are kept.</li>
-          <li>Back-channel logout is sent once, with no retry queue.</li>
-          <li>Signing keys are created once and do not rotate by themselves.</li>
+          <li>The audit log is kept in the same database as your data: stream it elsewhere if it must be out of reach of your own administrators.</li>
           <li>No consent screen: it is made for your own apps.</li>
           <li>SAML requests are not signed, and there is no single logout.</li>
           <li>SCIM covers users and groups, not bulk operations.</li>
@@ -235,7 +261,7 @@
           <p style="margin-top: 1rem;">How to install, configure and run php-sso is in its own documentation, which lives with the code. The three libraries it is built on each have theirs, and you can use them in your own PHP applications. All four are open source under the MIT license.</p>
         </div>
         <dl class="facts">
-          <div><dt><a href="https://php-sso.github.io/php-sso/">php-sso</a></dt><dd>The identity provider: installing it, setting it up, connecting your apps, SAML, SCIM and changing how it looks.</dd></div>
+          <div><dt><a href="https://php-sso.github.io/php-sso/">php-sso</a></dt><dd>The identity provider: running it with Docker or Composer, setting it up, security, backups, connecting your apps, SAML, SCIM and changing how it looks.</dd></div>
           <div><dt><a href="https://php-sso.github.io/oauth-server/">oauth-server</a></dt><dd>The OAuth 2.0 and OpenID Connect library underneath, for building your own server.<br><code>composer require php-sso/oauth-server</code></dd></div>
           <div><dt><a href="https://php-sso.github.io/scim-server/">scim-server</a></dt><dd>SCIM 2.0 provisioning of users and groups, with your own accounts and storage behind it.<br><code>composer require php-sso/scim-server</code></dd></div>
           <div><dt><a href="https://php-sso.github.io/saml/">saml</a></dt><dd>SAML 2.0 sign-in through a company's identity provider, for any PHP application.<br><code>composer require php-sso/saml</code></dd></div>
