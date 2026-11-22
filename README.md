@@ -11,7 +11,8 @@ dependencies, and the pages make no requests to other sites (the fonts are serve
 | File | What it is |
 | --- | --- |
 | `index.html` | The home page: a hero with three example passes (three people, three ways in), then the features and a sign-in you can try. |
-| `standards.html` | The specifications php-sso implements, each linked to its official text. |
+| `standards/index.html` | The specifications php-sso implements, each linked to its official text. |
+| `standards.html` | A redirect to `/standards/`, so addresses with the old `.html` ending still work. |
 | `404.html` | Shown by GitHub Pages for unknown addresses. |
 | `assets/site.css` | All styles. Colours are variables at the top, with a dark theme that follows the system. |
 | `assets/site.js` | The sign-in simulation. |

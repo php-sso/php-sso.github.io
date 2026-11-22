@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Standards: php-sso</title>
+  <meta name="description" content="The specifications php-sso implements, and what it does for each: OpenID Connect, OAuth 2.0 with PKCE, SAML, SCIM and authenticator codes.">
+  <link rel="canonical" href="https://php-sso.github.io/standards/">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+  <link rel="manifest" href="/assets/site.webmanifest">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <meta name="theme-color" content="#15123f" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#1a1752" media="(prefers-color-scheme: dark)">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Standards: php-sso">
+  <meta property="og:description" content="The specifications php-sso implements, and what it does for each.">
+  <meta property="og:url" content="https://php-sso.github.io/standards/">
+  <meta property="og:image" content="https://php-sso.github.io/assets/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="php-sso: one sign-in for everything you run">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preload" href="/assets/fonts/ibm-plex-sans-condensed-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/ibm-plex-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to the content</a>
+
+  <header class="top on-night">
+    <div class="wrap">
+      <a class="brand" href="/"><img src="/assets/php-sso-logo.svg" alt="php-sso" height="40"></a>
+      <nav class="nav" aria-label="Main">
+        <a href="/#features">Features</a>
+        <a href="/standards/" aria-current="page">Standards</a>
+        <a href="/#docs">Documentation</a>
+        <a class="nav-icon" href="https://github.com/php-sso" aria-label="php-sso on GitHub" title="php-sso on GitHub"><svg viewBox="0 0 16 16" width="22" height="22" aria-hidden="true" focusable="false"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <div class="on-night">
+      <div class="wrap page-head">
+        <h1>Standards</h1>
+        <p>The specifications php-sso implements, and what it does for each.</p>
+      </div>
+    </div>
+
+    <div class="wrap page-body">
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Specification</th><th>What php-sso does</th></tr></thead>
+          <tbody>
+            <tr><td><a href="https://openid.net/specs/openid-connect-core-1_0.html">OpenID Connect Core 1.0</a></td><td>Authorization code flow, ID tokens with <code>nonce</code>, <code>auth_time</code> and <code>amr</code>, UserInfo, <code>prompt=login</code>, <code>prompt=none</code> and <code>max_age</code>.</td></tr>
+            <tr><td><a href="https://openid.net/specs/openid-connect-discovery-1_0.html">OpenID Connect Discovery</a> and <a href="https://www.rfc-editor.org/rfc/rfc8414">RFC 8414</a></td><td>One discovery document, served at both well-known addresses, with the signing keys in a JWKS.</td></tr>
+            <tr><td>OAuth 2.0 (<a href="https://www.rfc-editor.org/rfc/rfc6749">RFC 6749</a>)</td><td>Authorization code, refresh token and client credentials grants. There is no password grant and no implicit flow.</td></tr>
+            <tr><td>PKCE (<a href="https://www.rfc-editor.org/rfc/rfc7636">RFC 7636</a>)</td><td><code>S256</code> is required for every app. <code>plain</code> is refused.</td></tr>
+            <tr><td><a href="https://www.rfc-editor.org/rfc/rfc9068">RFC 9068</a> and <a href="https://www.rfc-editor.org/rfc/rfc9207">RFC 9207</a></td><td>Access tokens are signed JWTs of type <code>at+jwt</code>. Authorization responses carry the issuer, so an app can tell servers apart.</td></tr>
+            <tr><td>Device grant (<a href="https://www.rfc-editor.org/rfc/rfc8628">RFC 8628</a>)</td><td>A TV or command line shows a short code, and the person approves it on their phone. Wrong codes are limited.</td></tr>
+            <tr><td>Revocation and introspection (<a href="https://www.rfc-editor.org/rfc/rfc7009">RFC 7009</a>, <a href="https://www.rfc-editor.org/rfc/rfc7662">7662</a>)</td><td>Both endpoints, with introspection limited to confidential apps such as APIs.</td></tr>
+            <tr><td><a href="https://openid.net/specs/openid-connect-rpinitiated-1_0.html">RP-initiated</a> and <a href="https://openid.net/specs/openid-connect-backchannel-1_0.html">back-channel</a> logout</td><td>Signing out of one app ends the session, revokes its tokens and tells the other apps that support it.</td></tr>
+            <tr><td><a href="https://www.rfc-editor.org/rfc/rfc8176">RFC 8176</a> (<code>amr</code>)</td><td>Says how someone signed in: <code>pwd</code>, <code>otp</code>, <code>mfa</code>, or <code>fed</code> for an outside account.</td></tr>
+            <tr><td>TOTP (<a href="https://www.rfc-editor.org/rfc/rfc6238">RFC 6238</a>)</td><td>Six-digit codes every 30 seconds from any authenticator app. A code works once.</td></tr>
+            <tr><td>QR Code (ISO/IEC 18004)</td><td>The code you scan to set up two-step verification is drawn by php-sso itself, so the secret never goes to an outside service.</td></tr>
+            <tr><td><a href="https://docs.oasis-open.org/security/saml/Post2.0/sstc-saml-tech-overview-2.0.html">SAML 2.0</a></td><td>php-sso is the service provider. Web SSO with a redirect out and a signed POST back, in the <code>php-sso/saml</code> package, which uses the <code>onelogin/php-saml</code> library.</td></tr>
+            <tr><td>SCIM 2.0 (<a href="https://www.rfc-editor.org/rfc/rfc7643">RFC 7643</a>, <a href="https://www.rfc-editor.org/rfc/rfc7644">7644</a>)</td><td>Users and groups: create, read, look up with <code>eq</code> filters, replace, patch and delete. No bulk, sorting or ETags.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <footer class="on-night">
+    <div class="wrap">
+      <span>php-sso</span>
+      <span><a href="/">Home</a> and <a href="https://github.com/php-sso">source on GitHub</a></span>
+    </div>
+  </footer>
+</body>
+</html>
