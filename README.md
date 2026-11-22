@@ -38,7 +38,7 @@ Every page opens on a deep indigo band, and the rest is light. Colour is used to
 
 ## Documentation lives elsewhere
 
-This site does not explain how to install or run php-sso. The "Documentation" section on the home page points to the documentation of each repository (`php-sso`, `oauth-server`, `scim-server` and `saml`) and shows how to install each library. When that documentation moves, for example to its own site, change those links in `index.html`.
+This site does not explain how to install or run php-sso. The "Documentation" section on the home page links to the documentation site of each repository (`php-sso`, `oauth-server`, `scim-server` and `saml`, each at `php-sso.github.io/<repository>/`) and shows how to install each library. Those sites are built with Hugo and the theme in the `docs-theme` repository, from the `docs/` folder of each repository. If a site moves, change the links in `index.html`.
 
 ## Keeping the copy true
 
